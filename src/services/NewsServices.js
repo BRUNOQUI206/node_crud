@@ -12,4 +12,16 @@ module.exports = {
       });
     });
   },
+
+  searchAllReverse: () => {
+    return new Promise((accepted, rejected) => {
+      db.query("SELECT * FROM news ORDER BY id DESC;", (error, results) => {
+        if (error) {
+          rejected(error);
+          return;
+        }
+        accepted(results);
+      });
+    });
+  },
 };
