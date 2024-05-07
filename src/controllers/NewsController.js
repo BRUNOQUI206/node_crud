@@ -1,0 +1,1 @@
+const NewsService = require('../services/NewsServices');
