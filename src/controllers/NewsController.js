@@ -29,6 +29,18 @@ module.exports = {
             });
         }
         res.json(json);
+    },
+
+    searchNew: async (rec, res)=>{
+        let json = {error:'', result:{}};
+
+        let id = rec.params.id;
+        let New = await NewsService.searchNew(id);
+
+        if(New){
+            json.result = New;
+        }
+        res.json(json);
     }
 
 }
