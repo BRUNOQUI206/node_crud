@@ -1,15 +1,20 @@
 const mysql = require('mysql');
+const variables = require('./config/variables.config');
 
 const connection = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME
+    host: variables.var.DB_HOST,
+    user: variables.var.DB_USER,
+    password: variables.var.DB_PASS,
+    database: variables.var.DB_NAME
 });
 
 connection.connect((error) => {
-    if(error) throw error;
-    console.log(`Successful in connecting to a database: ${process.env.DB_NAME}`);
+    if(error){
+        console.log(`Error ending the database connection: `, error.message);
+        connection.end()
+    }else{
+        console.log(`Successful in connecting to a database: ${variables.var.DB_NAME}`);
+    }
 });
 
 module.exports = connection;

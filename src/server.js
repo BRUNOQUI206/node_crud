@@ -1,4 +1,4 @@
-require('dotenv').config({path:'variables.env'});
+const variables = require('./config/variables.config');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -11,6 +11,6 @@ server.use(bodyParser.urlencoded({extended: false}));
 
 server.use('/api',routes);
 
-server.listen(process.env.PORT, () => {
-    console.log(`Server running on: http://localhost:${process.env.PORT}`);
+server.listen(variables.var.PORT, () => {
+    console.log(`Server running on: http://localhost:${variables.var.PORT}`);
 });
