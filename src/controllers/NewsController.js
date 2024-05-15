@@ -55,7 +55,7 @@ module.exports = {
       try {
         let NewCode = await NewsService.insertNew(author, date, title, image);
         json.result = {
-          code: NewCode,
+          id: NewCode,
           author,
           date,
           title,
@@ -63,6 +63,34 @@ module.exports = {
         };
       } catch (error) {
         json.error = "Error inserting new";
+      }
+    } else {
+      json.error = "Fields not sent or file not uploaded";
+    }
+    res.json(json);
+  },
+
+  updateNew: async (req, res) => {
+    let json = { error: "", result: {} };
+
+    let id = req.params.id;
+    let author = req.body.author;
+    let date = req.body.date;
+    let title = req.body.title;
+    let image = req.file ? req.file.originalname : req.body.image;
+
+    if (id && author && date && title) {
+      try {
+        await NewsService.updateNew(id, author, date, title, image);
+        json.result = {
+          id,
+          author,
+          date,
+          title,
+          image,
+        };
+      } catch (error) {
+        json.error = "Error updating new";
       }
     } else {
       json.error = "Fields not sent or file not uploaded";

@@ -56,4 +56,20 @@ module.exports = {
       );
     });
   },
+
+  updateNew: (id, author, date, title, image) => {
+    return new Promise((accepted, rejected) => {
+      db.query(
+        "UPDATE news SET author=?, date=?, title=?, image=? WHERE id=?",
+        [author, date, title, image, id],
+        (error, results) => {
+          if (error) {
+            rejected(error);
+            return;
+          }
+          accepted(results);
+        }
+      );
+    });
+  },
 };
