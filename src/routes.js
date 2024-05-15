@@ -8,5 +8,6 @@ router.get("/newsReverse", NewsController.searchAllReverse);
 router.get("/new/:id", NewsController.searchNew);
 router.post("/new", NewsController.insertNew);
 router.put("/new/:id", NewsController.updateNew);
+router.delete("/new/:id", NewsController.deleteNew);
 
 module.exports = router;

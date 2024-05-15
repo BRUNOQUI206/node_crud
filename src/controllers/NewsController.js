@@ -97,4 +97,10 @@ module.exports = {
     }
     res.json(json);
   },
+
+  deleteNew: async (req, res) => {
+    let json = { error: "", result: {} };
+    await NewsService.deleteNew(req.params.id);
+    res.json(json);
+  },
 };

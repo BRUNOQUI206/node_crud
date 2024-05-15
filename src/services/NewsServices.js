@@ -1,3 +1,4 @@
+const { deleteNew } = require("../controllers/NewsController");
 const db = require("../db");
 
 module.exports = {
@@ -70,6 +71,18 @@ module.exports = {
           accepted(results);
         }
       );
+    });
+  },
+
+  deleteNew: (id) => {
+    return new Promise((accepted, rejected) => {
+      db.query("DELETE FROM new WHERE id=?", [id], (error, results) => {
+        if (error) {
+          rejected(error);
+          return;
+        }
+        accepted(results);
+      });
     });
   },
 };
