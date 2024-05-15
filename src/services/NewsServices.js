@@ -40,4 +40,20 @@ module.exports = {
       });
     });
   },
+
+  insertNew: (author, date, title, image) => {
+    return new Promise((accepted, rejected) => {
+      db.query(
+        "INSERT INTO news (author, date, title, image) VALUES (?, ?, ?, ?)",
+        [author, date, title, image],
+        (error, results) => {
+          if (error) {
+            rejected(error);
+            return;
+          }
+          accepted(results.insertCode);
+        }
+      );
+    });
+  },
 };

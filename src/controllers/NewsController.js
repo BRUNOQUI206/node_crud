@@ -1,7 +1,7 @@
 const NewsService = require('../services/NewsServices');
 
 module.exports = {
-    searchAll: async (rec, res)=>{
+    searchAll: async (req, res)=>{
         let json = {error:'', result:[]};
         let news = await NewsService.searchAll();
         for (let i in news){
@@ -16,7 +16,7 @@ module.exports = {
         res.json(json);
     },
 
-    searchAllReverse: async (rec, res)=>{
+    searchAllReverse: async (req, res)=>{
         let json = {error:'', result:[]};
         let news = await NewsService.searchAllReverse();
         for (let i in news){
@@ -31,14 +31,37 @@ module.exports = {
         res.json(json);
     },
 
-    searchNew: async (rec, res)=>{
+    searchNew: async (req, res)=>{
         let json = {error:'', result:{}};
 
-        let id = rec.params.id;
+        let id = req.params.id;
         let New = await NewsService.searchNew(id);
 
         if(New){
             json.result = New;
+        }
+        res.json(json);
+    },
+
+    insertNew: async (req, res)=>{
+        let json = {error:'', result:{}};
+
+        let author = req.body.author;
+        let date = req.body.date;
+        let title = req.body.title;
+        let image = req.body.image;
+
+        if(author && date && title && image){
+            let NewCode = await NewsService.insertNew(author, date, title, image);
+            json.result = {
+                code: NewCode,
+                author,
+                date,
+                title,
+                image
+            };
+        }else {
+            json.error = 'Fields not sent';
         }
         res.json(json);
     }
