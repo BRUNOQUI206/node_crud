@@ -1,4 +1,3 @@
-const { deleteNew } = require("../controllers/NewsController");
 const db = require("../db");
 
 module.exports = {
