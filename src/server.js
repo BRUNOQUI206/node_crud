@@ -4,6 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const multer = require('multer');
 const routes = require("./routes");
+const pageRouter = require("./page.routes");
 const { createTable } = require("./config/table.config");
 
 const server = express();
@@ -13,7 +14,7 @@ server.use(bodyParser.json());
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "assets/news");
+    cb(null, "./eecasperlibero/browser/assets/news");
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -23,6 +24,7 @@ const upload = multer({ storage: storage });
 
 server.use(upload.single("image"));
 server.use("/api", routes);
+server.use("/", pageRouter);
 
 createTable().then(() => {
   server.listen(variables.var.PORT, () => {

@@ -1,4 +1,3 @@
-// src/table.config.js
 const { Sequelize, DataTypes } = require('sequelize');
 const variables = require('../config/variables.config');
 
